@@ -1,1 +1,90 @@
-hello
+<body>
+	<link href="https://doc-14-70-docs.googleusercontent.com/docs/securesc/h4eqj1kef351eta67rur8bt117tndksh/jr8mlj8sp81rbaoh1gm9b935f28l3bab/1510531200000/06939981719651305134/06939981719651305134/1HFkh1hEGqa79VtcliKbN4SIuKkHxjxn0?e=download&nonce=0gov4m578hp7c&user=06939981719651305134&hash=lrkqlq6r7ur1qsgchrt6ogekbilbqghk" rel="stylesheet" type="text/css" />
+<style>
+
+
+.wrapperAttribsOptions{
+	position:relative;
+	margin-bottom:20px;
+}
+.wrapperAttribsOptions input[type="radio"]{
+	position:absolute;
+	top:-999px;
+}
+.wrapperAttribsOptions label{
+	padding-top:3px;
+	padding-bottom:3px;
+	padding-left:6px;
+	padding-right:6px;
+	border:1px solid #7D7D7D;
+}
+.wrapperAttribsOptions input[type="radio"]:checked+label,
+.wrapperAttribsOptions input[type="checkbox"]:checked+label{
+    border:1px solid #7D7D7D;
+    background:#7D7D7D;
+    color:#FFF;
+}
+
+</style>
+<div class="test">test</div>
+
+<h2 id="productPrices" class="productGeneral">
+Starting at: <span class="normalprice">€1,140.00 </span>
+<br>
+<span class="productSpecialPrice">€120.00</span>
+</h2>
+
+<div class="wrapperAttribsOptions">
+<input type="radio" id="radio1"  name="radio1" class="radio" value="1"/>
+<label for="radio1" >fffffffffa(+€1.99)</label>
+<input type="radio" id="radio2" name="radio1" class="radio" value="2" />
+<label for="radio2" >fffffffffbddddddddddd(+€5.00)</label>
+</div>
+
+<div class="wrapperAttribsOptions">
+<input type="radio" id="radio3"  name="radio" class="radio" value="3" />
+<label for="radio3" >fffffffffa(+€2.99)</label>
+<input type="radio" id="radio4" name="radio" class="radio" value="4" />
+<label for="radio4" >fffffffffbddddddddddd(+€1.5)</label>
+</div>
+
+<script type="text/javascript" src="jquery-1.11.3.min.js"></script>
+<!--set default checked for radio-->
+<script>
+var items = $('.wrapperAttribsOptions').find("input[type=radio]");
+for(var i=0;i<items.length;i++){
+	var name = items[i].name;
+	if(!$(".wrapperAttribsOptions input[type=radio][name='"+name+"']:checked").val()){
+	    $(".wrapperAttribsOptions input[type=radio][name='"+name+"']").eq(0).prop("checked",true);
+	}
+}
+$('.wrapperAttribsOptions input[type=radio]').click(function(){
+	productSpecialPriceCalc();
+});
+//var productSpecialPrice = $('.productSpecialPrice').attr('data');
+var productSpecialPrice = $('.productSpecialPrice').html();
+function productSpecialPriceCalc(){
+	var chkRadio = $('.wrapperAttribsOptions').find("input[type=radio]");
+	if(!productSpecialPrice)return;
+	var priceValue = parseFloat(productSpecialPrice.replace(/[^0-9\.]/ig,""));
+	var priceUnit = productSpecialPrice.replace(/[0-9\.]/ig,"");
+    for (var i = 0; i < chkRadio.length; i++) {
+      if (chkRadio[i].checked){
+      	//var data = $(chkRadio[i]).attr('data');
+      	var radioId = $(chkRadio[i]).attr('id');
+      	var chkLabel = $('.wrapperAttribsOptions').find("label[for="+radioId+"]");
+      	var str = $(chkLabel[0]).html();
+      	var data = str.substring(str.indexOf("(")+1,str.indexOf(")"))
+      	if(!data)continue;
+      	data =parseFloat(data.replace(/[^0-9\.]/ig,""));
+      	priceValue = priceValue+data;
+      	priceValue = Math.round(priceValue*100)/100;
+      }
+    }
+    priceValue = priceValue.toFixed(2);
+    $('.productSpecialPrice').html(priceUnit+priceValue);
+}
+productSpecialPriceCalc();
+</script>
+
+</body>
